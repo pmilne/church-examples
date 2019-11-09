@@ -1,0 +1,8 @@
+import church.lang.Array;
+import church.lang.operators.Streams;
+import church.lang.operators.Arithmetic;
+
+void: main String[]: args = {
+    a = createArray(5, i -> i * 2);
+    output << a << "\n";
+};

@@ -1,0 +1,121 @@
+import church.lang.Functions;
+import church.lang.Error;
+
+import church.lang.operators.Streams;
+import church.lang.operators.Relational;
+import church.lang.operators.Arithmetic;
+import church.lang.operators.Logical;
+
+import Pair;
+
+// A sparse data structure for polynomials: a * x ^ n + r(x), where a != 0
+class Polynomial<T>: {constant(T: a), term(T: a, int: n, Polynomial<T>: r)};
+
+// Constructor with checks
+polynomial(a, n, r) = (a == additive_identity) ? r : n == 0 ? constant(a) : term(a, n, r);
+
+// Generic accessors
+
+lc(constant(a)) = a;
+lc(term(a, n, r)) = a;
+
+deg(constant(a)) = 0;
+deg(term(a, n, r)) = n;
+
+red(constant(a)) = additive_identity;
+red(term(a, n, r)) = r;
+
+// Encoding to stream
+
+stream << constant(a)   = stream << a;
+stream << term(a, n, r) = {
+    s1 = (if a == multiplicative_identity then stream else stream << a << "*") << "x";
+    s2 = (if n == 1 then s1 else s1 << "^" << n);
+    if r == additive_identity then s2 else s2 << " + " << r;
+};
+
+// Equality
+
+     constant(a1) == constant(a2)     = a1 == a2;
+     constant(a1) == term(a2, n2, r2) = false;
+ term(a1, n1, r1) == constant(a2)     = false;
+ term(a1, n1, r1) == term(a2, n2, r2) = a1 == a2 and n1 == n2 and r1 == r2;
+
+// Addition
+
+                   additive_identity = constant additive_identity;
+
+    constant(a)      + constant(b)   = constant(a + b);
+    constant(a)      + term a2 n2 r2 = term a2 n2 (constant a + r2);
+    term(a1, n1, r1) + constant(a2)  = term a1 n1 (r1 + constant a2);
+       term a1 n1 r1 + term a2 n2 r2 = if n1 > n2 then term(a1, n1, r1 + (term a2 n2 r2)) else
+                                       if n1 < n2 then term(a2, n2, (term a1 n1 r1) + r2) else
+                                                       polynomial(a1 + a2, n1, r1 + r2);
+
+// Negation / Subtraction
+
+                      -constant(a)   = constant(-a);
+                      -term(a, n, r) = term(-a, n, -r);
+
+// Utilities
+
+map2 f g (constant c) = g c;
+map2 f g (term a n r) = f a n (map2 f g r);
+
+map1 f p = map2 (a -> n -> r -> term (f a) n r) (a -> constant (f a)) p;
+
+scale k p = map1 (a -> k * a) p;
+
+scaleAndShift k delta p = {
+    if delta == 0 then
+        scale k p
+    else
+        map2 (a -> n -> r -> polynomial (k * a) (n + delta) r) (a -> polynomial (k * a) delta additive_identity) p;
+};
+
+// Multiplication
+
+             multiplicative_identity = constant multiplicative_identity;
+
+       constant a1   * constant a2   = constant (a1 * a2);
+       constant a1   * term a2 n2 r2 = polynomial (a1 * a2) n2 (constant a1 * r2);
+       term a1 n1 r1 * constant a2   = polynomial (a1 * a2) n1 (r1 * constant a2);
+       term a1 n1 r1 * term a2 n2 r2 = scaleAndShift a1 n1 (term a2 n2 r2) + r1 * (term a2 n2 r2);
+
+// Division
+
+divideOrFail2 p v = map1 (a -> a /! v) p;
+
+// Invariant: u = q * v + r
+divide1 q r v = {
+    if v == additive_identity then
+        error "Polynomial:: divide by zero. "
+    else {
+        delta = deg r - deg v;
+        if r == additive_identity || delta < 0 then
+            pair q r
+        else {
+            k = (lc r) /! (lc v);
+            divide1 (polynomial k delta q) (red r - scaleAndShift k delta (red v)) v;
+        };
+     };
+};
+
+divide2 u v = divide1 additive_identity u v;
+
+quotient u v = first (divide2 u v);
+u % v = second (divide2 u v);
+
+// Utilities
+
+content p = map2 (a -> n -> r -> gcd a r) (c -> c) p;
+
+principlePart p = divideOrFail2 p (content p);
+
+/*
+promote :: a -> Polynomial a
+promote = Const
+
+promote1 :: Additive a => a -> Integer -> Polynomial a
+promote1 a n = Term a n (Const zero)
+*/

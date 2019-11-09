@@ -1,0 +1,11 @@
+import java.awt.Point;
+
+import church.lang.operators.Streams;
+
+void: main(String[]: args) = {
+    p = Point.new();
+    output << "p = " << p.toString() << "\n";
+
+    x = p.x;
+    output << "x = " << x << "\n";
+};

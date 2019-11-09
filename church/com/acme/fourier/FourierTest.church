@@ -1,0 +1,17 @@
+import church.lang.Array;
+import church.lang.operators.Logical;
+import church.lang.operators.Relational;
+import church.lang.operators.Streams;
+
+import church.math.Complex;
+
+main(String[]: args) = {
+    vec = createArray(8, i -> complex(i == 1 ? 1.0 : 0.0, 0.0));
+    output << "input: " << vec << "\n";
+    ft = Fourier.transform vec;
+    output << "output: " << ft << "\n";
+    last = ft[7];
+    assert 0.707 < last.re and last.re < 0.708;
+};
+
+

@@ -1,0 +1,14 @@
+import javax.swing.JButton;
+
+import church.lang.operators.Streams;
+
+void: main(String[]: args) = {
+    i1 = JButton.new().getPreferredSize().width;
+    output << "i1 = " << i1 << "\n";
+
+    i2 = java.awt.Button.new().getBounds().x;
+    output << "i2 = " << i2 << "\n";
+
+    i3 = java.awt.Button.new.getBounds.x;
+    output << "i3 = " << i3 << "\n";
+};

@@ -1,0 +1,9 @@
+import java.util.ArrayList;
+
+import church.lang.operators.Streams;
+
+void: main(String[]: args) = {
+    s1 = ArrayList.new().toString();
+    output << "s1 = " << s1 << "\n";
+};
+

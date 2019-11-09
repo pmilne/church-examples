@@ -1,0 +1,28 @@
+import church.lang.operators.Arithmetic;
+import church.lang.operators.Relational;
+
+// A linked list represented as an abstract data type
+
+class List<T>: {nil, cons(T: first, List<T>: rest)};
+
+// Below are two equivalent definitions of a recursive 'length' function; both compiling to the same Java code.
+
+// 1. Regular function syntax, with a separate definition for each case.
+
+length1(nil) = 0;
+length1(cons(first, rest)) = 1 + length1(rest);
+
+// 2. Set-of-functions syntax, with the definitions grouped into an anonymous set of partial functions.
+
+l.length2 = {nil -> 0, cons(first, rest) -> 1 + rest.length2}.get(l);
+
+// The rhs above is equivalent to: l.accept({nil -> 0, cons(first, rest) -> 1 + rest.length}).
+
+// Test
+main(String[]: args) = {
+    l = cons(1, cons(2, nil));
+    assert l.length1 == 2;
+    assert l.length2 == 2;
+};
+
+

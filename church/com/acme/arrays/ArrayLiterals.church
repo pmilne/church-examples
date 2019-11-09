@@ -1,0 +1,7 @@
+import church.lang.Array;
+import church.lang.operators.Streams;
+
+void: main String[]: args = {
+    oneOrTheOther = if true then [1, 2, 3] else [];
+    output << oneOrTheOther << "\n";
+};

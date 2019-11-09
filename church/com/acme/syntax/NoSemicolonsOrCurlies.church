@@ -1,0 +1,9 @@
+import church.lang.operators.Arithmetic
+import church.lang.operators.Relational
+
+void: main(String[]: args) =
+    x = 1
+    y = 1
+    assert x == y
+
+foo x = x + 1

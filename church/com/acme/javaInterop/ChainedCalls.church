@@ -1,0 +1,13 @@
+import javax.swing.JButton;
+
+import church.lang.operators.Streams;
+
+void: main(String[]: args) = {
+    b1 = JButton.new();
+    b2 = JButton.new;
+    s1 = b1.toString;
+    s2 = b1.toString();
+    s3 = JButton.new().toString();
+    s4 = JButton.new.toString;
+    output << "JButton: " << b1 << "\n";
+};

@@ -1,0 +1,13 @@
+import church.lang.operators.Streams;
+import church.lang.operators.Relational;
+import church.util.HashSet;
+import church.util.Hash;
+
+void: main String[]: args =
+    a = {1, 2, 3, 2, 1}
+    output << a << "\n"
+    assert a.size == 3
+    assert a.contains(1)
+    b = {"foo", "bar", "baz", "basil", "basel"}
+    assert b.size == 5
+    output << b << "\n"

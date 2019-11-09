@@ -1,0 +1,18 @@
+import church.util.Entry;
+import church.util.HashMap;
+import church.util.Hash;
+import church.lang.operators.Relational;
+import church.lang.operators.Streams;
+
+void: main String[]: args = {
+    a = {"foo" -> 2, "bar" -> 4};
+    output << "a = " << a << "\n";
+
+    e1 = a.get("foo");
+    output << "a.get(\"foo\") = " << e1 << "\n";
+
+    e2 = a["foo"];
+    output << "a[\"foo\"] = " << e2 << "\n";
+
+    assert a.get("foo") == 2;
+};

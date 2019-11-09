@@ -1,0 +1,19 @@
+import church.lang.Array;
+import church.lang.operators.Streams;
+import church.lang.operators.Relational;
+import church.lang.operators.Arithmetic;
+
+import Modular;
+
+main(String[]: args) = {
+    m1 = modular(10, 2);
+    m2 = modular(10, 7);
+
+    m3 = m1 * m2;
+    output << m3 << "\n";
+    assert m3 == modular(10, 4);
+
+    m4 = /m2;
+    output << m4 << "\n";
+    assert m4 == modular(10, 3);
+};

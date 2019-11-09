@@ -1,0 +1,9 @@
+import church.util.Entry;
+import church.util.HashMap;
+import church.util.Hash;
+import church.lang.operators.Relational;
+import church.lang.operators.Streams;
+
+main String[]: args = {
+    output << (if args.length == 0 then {"foo" -> 1, "bar" -> 2} else {"bar" -> 3, "baz" -> 4}) << "\n";
+};

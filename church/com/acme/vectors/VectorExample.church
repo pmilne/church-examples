@@ -1,0 +1,32 @@
+import church.lang.Array;
+import church.lang.operators.Arithmetic;
+import church.lang.operators.Streams;
+import church.lang.operators.Relational;
+
+import church.math.Vector;
+
+main(String[]: args) = {
+    // Vector<Integer>
+    v1 = <1, 2>;
+    v2 = <3, 4>;
+    v3 = -v1;
+    v4 = v2 - v1;
+    output << v4 << "\n";
+    assert v4 == <2, 2>;
+
+    // Vector<Vector<Integer>> c.f. Matrix<Integer>
+    // Nested angle brackets result in the '<<' token which is defined as the stream operator -- choose new operator?
+    m1 = < <1, 2>, <3, 4> >;
+    m2 = < <4, 3>, <2, 1> >;
+    m3 = m2 - m1;
+    output << m3 << "\n";
+    assert m3 == < <3, 1>, <-1, -3> >;
+
+    // Vector<Array<Integer>>
+    m4 = <[4, 3], [2, 1]>;
+    output << m4 << "\n";
+
+    // Array<Vector<Integer>>
+    m5 = [<4, 3>, <2, 1>];
+    output << m5 << "\n";
+};

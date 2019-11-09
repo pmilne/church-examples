@@ -1,0 +1,10 @@
+import church.math.Complex;
+
+complex x y = x;
+
+void: main(String[]: args) = {
+    c0 = complex(1, 2);
+    c1 = QualifiedMethodExample.complex(1, 2);
+    c2 = Complex.complex(1, 2);
+    c3 = church.math.Complex.complex(1, 2);
+};

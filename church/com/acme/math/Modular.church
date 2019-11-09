@@ -1,0 +1,61 @@
+import church.lang.operators.Streams;
+import church.lang.operators.Relational;
+import church.lang.operators.Arithmetic;
+import church.lang.operators.Logical;
+import church.lang.Error;
+
+import church.lang.Array;
+
+// Take the modulus as the first argument, in anticipation of a higher order (Curried) constructor being available in
+// the future. In the Curried version the modulus would be stored as part of the type, rather than once for each
+// instance. This would also remove many of the run time checks currently needed in the methods below.
+class Modular<T>: modular(T: modulus, T: residue);
+
+// Accessors
+
+/*
+modular(modulus, residue).modulus = modulus;
+
+modular(modulus, residue).residue = residue;
+*/
+
+// The calling methods are all assuming that the underlying domain (e.g. int) is large enough
+// to hold the results of any two elements being added, subtracted or multiplied.
+canonical(m1, m2, residue) = {
+    if m1 != m2 then error "Modular:: incompatible moduli" else modular(m1, residue % m1);
+};
+
+extendedEuclid(u, v) = {
+    if v[2] == additive_identity
+        then u
+        else {
+            q = quotient(u[2], v[2]);
+            extendedEuclid(v, createArray(3, i -> u[i] - q * v[i]));
+        };
+};
+
+// Arithmetic identities / implementation
+
+                       stream << modular(modulus, residue) = stream << residue << " (modulo " << modulus << ")";
+
+                        modular(m1, r1) == modular(m2, r2) = (m1 == m2 and r1 == r2);
+
+                         modular(m1, r1) + modular(m2, r2) = canonical(m1, m2, r1 + r2);
+
+                                -modular(modulus, residue) = modular(modulus, modulus - residue);
+
+                         modular(m1, r1) * modular(m2, r2) = canonical(m1, m2, r1 * r2);
+
+                                /modular(modulus, residue) = {
+                                                                 u = [multiplicative_identity, additive_identity, modulus];
+                                                                 v = [additive_identity, multiplicative_identity, residue];
+                                                                 lc = extendedEuclid(u, v);
+                                                                 if lc[2] != multiplicative_identity
+                                                                     then error "Modular: cannot invert residue as it shares a factor with modulus"
+                                                                     else modular(modulus, lc[1]);
+                                                             }
+
+// To implement these properly we really need the modulus to be a 'type variable'...
+
+//                                         additive_identity = modular(additive_identity, additive_identity);
+//                                   multiplicative_identity = modular(multiplicative_identity, additive_identity);

@@ -1,0 +1,13 @@
+import java.util.ArrayList;
+
+import church.lang.operators.Streams;
+
+void: main(String[]: args) = {
+    l = ArrayList.new();
+    i = l.size();
+    k1 = l.add("Hello");
+    k2 = l.add("world!");
+//    k1 = l.add(1); // uncomment to check that this fails to compile
+    e0 = l.get(0);
+    output << "l = " << l.toString() << "\n";
+};

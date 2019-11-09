@@ -1,0 +1,23 @@
+import church.lang.operators.Streams;
+import church.lang.operators.Arithmetic;
+import church.lang.operators.Relational;
+
+import church.math.Interval;
+
+spam x y = x + y + 7;
+
+main(String[]: args) = {
+    // Interval<Integer>
+    i1 = interval(1, 2);
+    i2 = interval(3, 4);
+    output << i1 * i2 << "\n";
+    assert i1 * i2 == interval(3, 8);
+
+    // Interval<Double>
+    i3 = interval(2.0, 4.0);
+    output <<  /i3 << "\n";
+
+    i4 = interval(-1.0, 2.0);
+    output << i4 / i3 << "\n";
+    output << i3 / i4 << "\n";
+};

@@ -1,0 +1,29 @@
+import church.lang.operators.Streams;
+import church.lang.operators.Relational;
+import church.lang.operators.Arithmetic;
+
+import church.math.Complex;
+import church.math.Interval;
+
+// A generic successor function, accessing the per-type constant 'multiplicative_identity'
+successor x = x + multiplicative_identity;
+
+main(String[]: args) = {
+    // A Complex<Integer>
+    c0 = complex(1, 2);
+
+    c1 = successor c0;
+    output << c1 << "\n";
+    assert c1 == complex(2, 2);
+
+    // A Complex<Interval<Integer>>
+    ci0 = complex(interval(1, 2), interval(3, 4));
+
+    ci1 = successor ci0;
+    output << ci1 << "\n";
+    assert ci1 == complex(interval(2, 3), interval(3, 4));
+
+    ci2 = ci0 * ci0;
+    output << ci2 << "\n";
+    assert ci2 == complex(interval(-15, -5), interval(6, 16));
+};

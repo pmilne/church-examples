@@ -1,0 +1,14 @@
+import church.lang.operators.Streams;
+import church.lang.operators.Relational;
+import church.lang.operators.Arithmetic;
+
+import church.math.BigDecimals;
+
+main(String[]: args) = {
+    i1 = bigDecimal(1000.0);
+    i2 = i1 * i1;
+    i3 = i2 * i2;
+    i4 = i3 * i3;
+    i5 = i4 * i4;
+    output << i5 << "\n";
+};

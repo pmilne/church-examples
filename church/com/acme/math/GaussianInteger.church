@@ -1,0 +1,18 @@
+import church.lang.operators.Arithmetic;
+
+import church.math.Complex;
+
+// http://www.math.ucsd.edu/~jverstra/Gaussian1.pdf
+
+round2 a b = quotient(a + quotient(sign(a) * b, multiplicative_identity + multiplicative_identity)) b;
+
+complexQuotient(complex a b, complex c d) = {
+    na = a * c + b * d;
+    nb = b * c - a * d;
+    den = c * c + d * d;
+    complex(round2 na den, round2 nb den);
+};
+
+n % d = n - d * complexQuotient(n, d);
+
+// divide n d f = {q = complexQuotient(n, d); r = n - d * q; f q r;};

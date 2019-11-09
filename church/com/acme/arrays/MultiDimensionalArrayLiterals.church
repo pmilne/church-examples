@@ -1,0 +1,13 @@
+import church.lang.Array;
+import church.lang.operators.Arithmetic;
+import church.lang.operators.Streams;
+import church.lang.operators.Relational;
+
+main(String[]: args) = {
+    a1 = [1, 2];
+    a2 = [3, 4];
+    aa1 = [a1, a2];
+    aa2 = [[1, 2], [3, 4]];
+    output << aa1 << "\n";
+    assert aa1 == aa2;
+};

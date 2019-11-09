@@ -1,0 +1,40 @@
+import java.lang.Math;
+
+import church.lang.Array;
+import church.lang.operators.Arithmetic;
+import church.lang.operators.Relational;
+
+import church.math.Complex;
+
+/**
+ * An assignment-free, N log(N) Fourier transform for generic vector and associated generator.
+ * Parameters:
+ *     exp:    an integer function defined so that exp(i) = w^(i/N) where w is the generator; for which w^N = 1
+ *     vec:    the input vector, which is in type T and of length N, where N is a power of 2 (unchecked)
+ *     stride: should be called with the value 1
+ * The algorithm takes O(N Log(N)) time and space. It would have better constants if it operated on
+ * just log(N) arrays of length N, rather than producing a larger number of smaller arrays during the recursion.
+ */
+
+evens(a) = createArray( a.length      / 2, i -> a[2 * i]);
+odds(a)  = createArray((a.length + 1) / 2, i -> a[2 * i + 1]);
+
+transform_rec(exp, vec, stride) = {
+    N = vec.length;
+    if (N == 1) {
+        vec
+    } else {
+        evens0 = transform_rec(exp, evens(vec), 2 * stride);
+        odds0  = transform_rec(exp,  odds(vec), 2 * stride);
+        halfN  = N / 2;
+        createArray(vec.length, i -> {k = i % halfN; evens0[k] + exp(stride * i) * odds0[k];});
+    };
+};
+
+exp_2PI_i(i, N) = {theta = 2.0 * PI * i / N; complex(cos(theta), sin(theta));};
+
+transform(v) = {
+    N        = v.length;
+    expCache = createArray(N, i -> exp_2PI_i(i, N));
+    transform_rec(i -> expCache[i % N], v, 1);
+};

@@ -1,0 +1,14 @@
+import church.lang.operators.Streams;
+import church.lang.operators.Relational;
+import church.lang.operators.Arithmetic;
+
+import church.math.Complex;
+
+main(String[]: args) = {
+    c1 = complex(1, 2);
+    c2 = complex(3, 4);
+    c3 = -c1;
+    c4 = c1 + c2 * c3 - c3;
+    output << c4 << "\n";
+    assert c1 * c2 == complex(-5, 10);
+};

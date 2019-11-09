@@ -1,0 +1,9 @@
+import church.lang.Array;
+import church.lang.System;
+import church.lang.operators.Relational;
+import church.lang.operators.Streams;
+
+void: main String[]: args = {
+    a = ["Apple", "Pear"].stream().map((String: e) -> e.length()).toArray();
+    output << a << "\n";
+};

@@ -1,0 +1,24 @@
+import church.lang.operators.Streams;
+import church.lang.operators.Relational;
+import church.lang.operators.Arithmetic;
+
+import church.math.Complex;
+
+import GaussianInteger;
+
+test c1 c2 = {
+    c3 = gcd(c1, c2);
+    output << "gcd(" << c1 << ", " << c2 << ") = " << c3 << "\n";
+    c3;
+};
+
+main(String[]: args) = {
+    c0 = test(complex(3, 2), complex(-1, 3));
+    assert c0 == complex(0, 1);
+    test(complex(312, 2234), complex(-134, 3232));
+    c1 = complex(2, 3);
+    c2 = complex(1, 5);
+    c3 = complex(3, 7);
+    c4 = test(c1 * c3, c2 * c3);
+    assert c3 == c4;
+};

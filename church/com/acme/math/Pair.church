@@ -1,0 +1,8 @@
+import church.lang.operators.Streams;
+
+class Pair<T>: pair(T: el1, T: el2);
+
+stream << pair(a, b) = stream << "(" << a << " " << b << ")";
+
+first (pair a b) = a;
+second (pair a b) = b;
